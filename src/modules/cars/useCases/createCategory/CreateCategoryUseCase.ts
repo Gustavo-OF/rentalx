@@ -1,4 +1,5 @@
 import { ICategoriesReporitory } from "../../repositories/ICategoriesRepository";
+import { inject, injectable } from "tsyringe"
 //  Interface da req
 interface IRequestCreateCategory {
     name: string;
@@ -8,11 +9,15 @@ interface IRequestCreateCategory {
  * Foi separado as classes de criar categoria, passsando a regra de negocio.
  * Principio de inversão de dependencia.
  */
+
+@injectable()
 class CreateCategoryUseCase {
-    constructor(private categoryRepository: ICategoriesReporitory) {}
+    constructor(
+        @inject("CategoriesRepository")
+        private categoryRepository: ICategoriesReporitory) {}
     //  Cria o service e cria o método execute.
-    execute({ name, description }: IRequestCreateCategory): void {
-        const categoryAlredyExists = this.categoryRepository.findByName(name);
+    async execute({ name, description }: IRequestCreateCategory): Promise<void> {
+        const categoryAlredyExists = await this.categoryRepository.findByName(name);
 
         if (categoryAlredyExists) {
             //  Excessão, erro q vai ser lançado.

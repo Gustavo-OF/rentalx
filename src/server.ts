@@ -2,7 +2,10 @@
 import express from "express";
 //  Importa o swagger, documentacao
 import swaggerUi from "swagger-ui-express";
-
+//  Importa a conexao com o banco
+import "./database";
+//  Importa o Container
+import "./shared/container"
 //  Importa as rotas
 import { router } from "./routes";
 //  Importa o arquivo Json com as informações da doc.

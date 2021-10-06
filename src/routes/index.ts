@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { authenticateRoutes } from "./authenticate.routes";
 
 //  Importo as rotas do arquivo de rotas
 import { categoriesRoutes } from "./categories.routes";
@@ -11,6 +12,6 @@ const router = Router();
 router.use("/categories", categoriesRoutes);
 router.use("/specifications", specificationRoutes);
 router.use("/users", usersRoutes);
-
+router.use(authenticateRoutes)
 
 export { router };

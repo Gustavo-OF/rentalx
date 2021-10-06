@@ -2,25 +2,22 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { CreateUserUseCase } from "./CreateUserUseCase";
 
-class CreateUserController{
+class CreateUserController {
 
     async handle(request: Request, response: Response): Promise<Response> {
-        try{
-            const { name, password, email, driver_license } = request.body;
-            const createUserUseCase = container.resolve(CreateUserUseCase); 
 
-            await createUserUseCase.execute({
-                name,
-                password,
-                email,
-                driver_license,
-            });
+        const { name, password, email, driver_license } = request.body;
 
-            return response.status(201).send();
-            
-        }catch(err){
-            return response.status(404).json({error: err.message})
-        }
+        const createUserUseCase = container.resolve(CreateUserUseCase);
+
+        await createUserUseCase.execute({
+            name,
+            password,
+            email,
+            driver_license,
+        });
+
+        return response.status(201).send();
     }
 }
 

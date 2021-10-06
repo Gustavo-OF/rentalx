@@ -1,5 +1,6 @@
 import { ICategoriesReporitory } from "../../repositories/ICategoriesRepository";
 import { inject, injectable } from "tsyringe"
+import { AppError } from "../../../../errors/AppError";
 //  Interface da req
 interface IRequestCreateCategory {
     name: string;
@@ -21,7 +22,7 @@ class CreateCategoryUseCase {
 
         if (categoryAlredyExists) {
             //  Excessão, erro q vai ser lançado.
-            throw new Error("Category alredy exists!");
+            throw new AppError("Category alredy exists!");
         }
         this.categoryRepository.create({ name, description });
     }
